@@ -1,0 +1,113 @@
+.main {
+  background-color: #f5f8fa;
+  width: 100%;
+  height: 1000px;
+  position: relative;
+  top: 0.9rem;
+}
+
+.mint-swipe {
+  width: 100%;
+  height: 200px;
+}
+
+.bannar {
+  width: 100%;
+}
+
+.notes-layout {
+  width: 100%;
+  display: flex;
+  margin-top: .2rem;
+  overflow: hidden;
+}
+
+.left-layout,
+.right-layout {
+  /* margin-right: .1rem; */
+  padding: 0 0.15rem;
+  width: 100%;
+}
+
+.note-item {
+  width: 3.44rem;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0.04rem 0.08rem 0 rgba(0, 0, 0, .04);
+  box-shadow: 0 0.04rem 0.08rem 0 rgba(0, 0, 0, .04);
+  border-radius: .08rem;
+  overflow: hidden;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.note-pic a {
+  display: block;
+}
+
+.note-pic img {
+  width: 100%;
+}
+
+.content {
+  padding: .2rem .2rem 0;
+  line-height: 150%;
+}
+
+.note-title {
+  color: #333;
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: .26rem;
+}
+
+.note-desc {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 0;
+  color: #666;
+}
+
+.note-info {
+  padding: .2rem;
+  line-height: .5rem;
+  overflow: hidden;
+  position: relative;
+  display: block;
+}
+
+.note-author {
+  display: inline-block;
+}
+
+.name {
+  color: #333;
+  font-size: .22rem;
+  width: 1.32rem;
+  display: inline-block;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+  line-height: .5rem;
+  margin-left: .1rem;
+}
+
+.likes {
+  position: absolute;
+  right: .2rem;
+  color: #666;
+  font-size: .26rem;
+  height: .5rem;
+  line-height: .5rem;
+}
+
+.love {
+  vertical-align: -3px;
+  width: .35rem;
+  height: .35rem;
+}
