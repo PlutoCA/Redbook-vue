@@ -11,11 +11,11 @@
         </mt-swipe>
       </div>
       <!-- 笔记 -->
-      <div class="notes-layout">
+      <div class="notes-layout"   v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="5">
         <!-- 左列表 -->
         <div class="left-layout">
           <!-- 笔记 -->
-          <div class="note-item" v-for="(item, index) in notesL" :key="item.noteId">
+          <div class="note-item" v-for="(item, index) in notesL" :key="item.num">
             <!-- 笔记图片 -->
             <div class="note-pic">
               <a href="">
@@ -40,7 +40,7 @@
         </div>
         <div class="right-layout">
           <!-- 笔记 -->
-          <div class="note-item" v-for="(item, index) in notesR" :key="item.noteId">
+          <div class="note-item" v-for="(item, index) in notesR" :key="item.user.userId">
             <!-- 笔记图片 -->
             <div class="note-pic">
               <a href="">
@@ -76,6 +76,7 @@ export default {
   data () {
     return {
       bannar: [],
+      count: 0,
       notesL: [],
       notesR: [],
       notes: []
@@ -92,17 +93,37 @@ export default {
           }
         }
       } else {
-        console.log('a')
         this.treat(this.$store.state.activeNotes)
       }
+    },
+    getNote (start) {
+      if (this.count <= 120) {
+        this.$http.get(api.host + '/note?_start=' + start + '&_limit=20').then(res => {
+          this.notes = res.data
+          this.treat(this.notes)
+        })
+      }
+    },
+    loadMore () {
+      if (this.count >= 120) {
+        this.loading = false
+      } else {
+        this.loading = true
+      }
+      setTimeout(() => {
+        this.getNote(this.count)
+        this.loading = false
+      }, 2000)
+      this.count += 20
     }
   },
   created () {
-    this.$http.get(api.host + '/data').then(res => {
-      this.data = res.data
-      this.bannar = res.data.bannar
-      this.notes = res.data.note
+    this.$http.get(api.host + '/note?_start=0&_limit=20').then(res => {
+      this.notes = res.data
       this.treat(this.notes)
+    })
+    this.$http.get(api.host + '/bannar').then(res => {
+      this.bannar = res.data
     })
   },
   components: {
@@ -125,7 +146,7 @@ export default {
       let activeNotes = this.activeNotes
       this.notesL = []
       this.notesR = []
-      for (let i = 0; i < activeNotes.length; i++) {
+      for (let i = 1; i < activeNotes.length; i++) {
         if (i % 2 === 0) {
           this.notesL.push(activeNotes[i])
         } else {

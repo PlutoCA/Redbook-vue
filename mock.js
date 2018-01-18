@@ -67,6 +67,13 @@ var data = new Mock.mock({
         "小白鞋"
       ]
     }
+  ],
+  'collections|12': [
+    {
+      'collectionsId|+1': 1, 
+      'hotpic': '@image(750x750, @color)',
+      'title': '@word(3,4)@cword(6,9)'
+    }
   ]
 })
 

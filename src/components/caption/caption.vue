@@ -16,9 +16,11 @@ export default {
     }
   },
   created () {
-    this.$http.get(api.host + '/data').then(res => {
-      this.navList = res.data.categories
-      this.notes = res.data.note
+    this.$http.get(api.host + '/categories').then(res => {
+      this.navList = res.data
+    })
+    this.$http.get(api.host + '/note').then(res => {
+      this.notes = res.data
     })
   },
   methods: {

@@ -2,18 +2,35 @@
   <div id="header">
     <nav>
       <div class="logo">
-        <a href="#"><img src="./images/logo-be88e12.png" alt=""></a>
+        <a href="/"><img src=".\images\logo-be88e12.png" alt=""></a>
       </div>
       <div class="tools">
-        <div class="list"><a href="">精选</a></div>
-        <div class="search">
+        <div class="list"><router-link tag="a" to="/collections">精选</router-link></div>
+        <div class="search" style="display: inline-block" v-show="!searchActive">
           <span><img src="./images/search.png" alt="" class="search-icon"></span>
           <form action="">
+            <input type="serch" name="search" id="" :placeholder="word + hot" @focus="changActive()">
+          </form>
+        </div>
+        <div class="search-active" style="display: inline-block" v-show="searchActive">
+          <form action="">
+          <span><img src="./images/search.png" alt="" class="search-icon"></span>
             <input type="serch" name="search" id="" :placeholder="word + hot">
           </form>
+          <span @click="changActive()">取消</span>
         </div>
       </div>
     </nav>
+    <div class="search-page" v-show="searchActive">
+      <div class="search-recommend">
+        <div class="search-title">
+          热门搜索
+        </div>
+        <div class="search-keywords">
+          <span class="keywords" v-for="(item, index) in hotword" :key="index">{{item}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -23,14 +40,21 @@ export default {
     return {
       hot: '',
       hotword: [],
-      word: '大家都在搜：'
+      word: '大家都在搜：',
+      searchActive: false
     }
   },
   created () {
-    this.$http.get(api.host + '/data').then(res => {
-      this.hotword = res.data.hotword
+    this.$http.get(api.host + '/hotword').then(res => {
+      this.hotword = res.data[0].data
+      // console.log(res.data[0].data)
       this.hot = this.hotword[0]
     })
+  },
+  methods: {
+    changActive () {
+      this.searchActive = !this.searchActive
+    }
   }
 }
 </script>
@@ -42,6 +66,9 @@ export default {
   z-index: 99999;
   position: fixed;
   background-color: #fff;
+}
+nav{
+  /* position: relative; */
 }
 .logo > a{
   display: inline-block;
@@ -107,6 +134,63 @@ form input{
   display: inline-block;
   vertical-align: middle;
   margin-left: .2rem;
+}
+.search-page{
+  /* z-index: 9999999999999999999; */
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 1000px;
+}
+.search-active{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  text-align: left;
+  background-color: #fff;
+}
+.search-active form{
+  background-color: #f5f5f5;
+  width: 6rem;
+  border-radius: .3rem;
+  margin-left: .3rem;
+  height: .7rem;
+  line-height: .7rem;
+  margin-top: .1rem;
+  display: inline-block;
+}
+.search-active>span{
+  cursor: pointer;
+  position: absolute;
+  right: .3rem;
+  font-size: .32rem;
+  text-align: center;
+  color: #999;
+}
+.search-title{
+  height: .8rem;
+  line-height: .88rem;
+  font-size: .26rem;
+  background: #f5f8fa;
+  width: 100%;
+  padding: 0 .4rem;
+  color: #999;
+}
+.search-keywords{
+  width: 100%;
+  padding: .3rem;
+  color: #666;
+  white-space: normal;
+  font-size: .28rem;
+}
+.keywords{
+  cursor: pointer;
+  display: inline-block;
+  padding: .2rem .3rem;
+  margin: 0 .2rem .2rem 0;
+  line-height: .3rem;
+  background: #f5f8fa;
+  border-radius: 4px;
 }
 </style>
 

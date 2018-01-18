@@ -11,7 +11,7 @@ import api from './api'
 export default {
   name: 'app',
   created () {
-    this.$http.get(api.host + '/data').then(res => {
+    this.$http.get(api.host + '/note').then(res => {
       this.data = res.data
       this.$store.commit('SAVE_COMPUTED_NOTES', this.data)
     })
