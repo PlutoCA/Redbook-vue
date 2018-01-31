@@ -68,7 +68,8 @@ export default {
   background-color: #fff;
 }
 nav{
-  /* position: relative; */
+  -webkit-box-shadow: 0 0.04rem 0.08rem 0 rgba(0,0,0,.08);
+  box-shadow: 0 0.04rem 0.08rem 0 rgba(0,0,0,.08);
 }
 .logo > a{
   display: inline-block;

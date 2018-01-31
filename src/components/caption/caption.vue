@@ -64,6 +64,5 @@ export default {
     font-weight: 800;
     color: #333;
   }
-
 </style>
 

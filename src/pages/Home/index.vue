@@ -40,7 +40,7 @@
         </div>
         <div class="right-layout">
           <!-- 笔记 -->
-          <div class="note-item" v-for="(item, index) in notesR" :key="item.user.userId">
+          <router-link tag="div" :to="'/note/'+item.noteId" class="note-item" v-for="(item, index) in notesR" :key="item.user.userId">
             <!-- 笔记图片 -->
             <div class="note-pic">
               <a href="">
@@ -59,9 +59,10 @@
               <div class="note-author">
                 <a href="" class="name">{{item.user[0].name}}</a>
               </div>
-              <span class="likes"><img src="./images/love.png" alt="" class="love">{{item.num}}</span>
+              <span class="likes"><img src="./images/love.png" alt="" class="love">{{item.id}}</span>
             </div>
-          </div>
+
+          </router-link>
         </div>
       </div>
     </div>
@@ -98,7 +99,7 @@ export default {
     },
     getNote (start) {
       if (this.count <= 120) {
-        this.$http.get(api.host + '/note?_start=' + start + '&_limit=20').then(res => {
+        this.$http.get(api.host + '/note?_start=' + start + '&_limit=15').then(res => {
           this.notes = res.data
           this.treat(this.notes)
         })
@@ -114,11 +115,11 @@ export default {
         this.getNote(this.count)
         this.loading = false
       }, 2000)
-      this.count += 20
+      this.count += 15
     }
   },
   created () {
-    this.$http.get(api.host + '/note?_start=0&_limit=20').then(res => {
+    this.$http.get(api.host + '/note?_start=0&_limit=15').then(res => {
       this.notes = res.data
       this.treat(this.notes)
     })
